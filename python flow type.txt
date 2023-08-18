@@ -1,0 +1,32 @@
+def classify_flow(reynolds_number):
+    if reynolds_number < 300000:
+        return "Laminar Flow"
+    elif reynolds_number >= 300000 and reynolds_number < 400000:
+        return "Transition Flow"
+    else:
+        return "Turbulent Flow"
+
+def calculate_reynolds_number(density, velocity, length, viscosity):
+    return (density * velocity * length) / viscosity
+
+# Inputs
+fluid_density = 1000.0  # kg/m^3
+fluid_velocity = 1.5  # m/s
+characteristic_length = 0.1  # m
+fluid_viscosity = 0.001  # kg/(m*s)
+
+# Calculate Reynolds number
+reynolds_number = calculate_reynolds_number(fluid_density, fluid_velocity, characteristic_length, fluid_viscosity)
+
+# Classify flow type based on Reynolds number
+flow_type = classify_flow(reynolds_number)
+
+# Output
+print("Reynolds Number:", reynolds_number)
+print("Flow Type:", flow_type)
+def sphere(flow_type):
+    for reynolds_number < 300000:
+    print("The flow is totally seperated and the wake behind the sphere is large")
+    for reynolds_number >= 300000 and reynolds_number < 400000:
+	print("The seperation point moves rearward and the wake behind the body is small")
+
