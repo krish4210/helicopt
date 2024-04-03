@@ -1,0 +1,79 @@
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from sklearn.model_selection import train_test_split
+import os
+
+# Split the data into 70% training and 30% validation
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Define an image generator for preprocessing and data augmentation
+def image_generator(data):
+    train_datagen = ImageDataGenerator(rescale=1./255)  # Normalize pixel values to [0, 1]
+
+    train_generator = train_datagen.flow_from_dataframe(
+        dataframe=data,
+        directory=base_dir,  # Path to your image files
+        x_col="filename",  # Column containing image filenames
+        y_col="label",  # Column containing labels (binary in your case)
+        target_size=(150, 150),  # Resize images to (150, 150)
+        batch_size=10,
+        class_mode='binary',  # Binary classification (tree or non-tree)
+        shuffle=True  # Shuffle the data
+    )
+    return train_generator
+
+# Define the model
+def create_model():
+    model = tf.keras.models.Sequential([tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(512, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')  # Output layer with sigmoid activation for binary classification
+        # ... (your model layers here)
+    ])
+    return model
+
+# Split the data into train and validation sets
+train_data = pd.DataFrame({'filename': X_train, 'label': y_train})
+val_data = pd.DataFrame({'filename': X_val, 'label': y_val})
+
+# Create image generators
+train_generator = image_generator(train_data)
+val_generator = image_generator(val_data)
+
+# Create and compile the model
+model = create_model()
+model.compile(loss='binary_crossentropy',
+              optimizer='adam',
+              metrics=['accuracy'])
+
+# Train the model
+history = model.fit(train_generator,
+                    epochs=20,
+                    validation_data=val_generator)
+					
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('Model accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend(['Train', 'Validation'], loc='upper left')
+
+# Plot training & validation loss values
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('Model loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend(['Train', 'Validation'], loc='upper left')
+
+plt.tight_layout()
+plt.show()
