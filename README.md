@@ -80,7 +80,7 @@ _Jan 2022 - Oct 2022_
 - **IEEE Publication:**  
   "Automated Recognition and Analysis of Bat Backlift in Cricket using Deep Learning."  
   _2025 International Conference on Advancement in Communication & Computing in Technology (INOACC), In press: Accepted for publication. (Final Year BE Project)_
-- **Leadership:** Led ISRO's Bharatiya Antariksh Hackathon 2024 project.
+- **Leadership:** Led ISRO's Bharatiya Antariksh Hackathon 2024 project and Smart India Hackathon 2023 project.
 
 ---
 
@@ -88,8 +88,8 @@ _Jan 2022 - Oct 2022_
 
 - **Email:** chaudharykrish650@gmail.com
 - **Phone:** +91-7757-901818
-- **LinkedIn:** [Your LinkedIn URL]
-- **GitHub:** [Your GitHub URL]
+- **LinkedIn:** https://www.linkedin.com/in/krish-chaudhari-8450b0229
+- **GitHub:** https://github.com/krish4210/helicopt/tree/main
 
 ---
 
